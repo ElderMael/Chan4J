@@ -52,7 +52,7 @@ public class FourChanPage {
 
 		try {
 
-			json = HttpUtils.getContentFromUrl(buildPageUrl(false));
+			json = HttpUtils.getContentFromUrl(buildPageUrl(useHttps));
 
 		} catch (IOException e) {
 
