@@ -16,8 +16,6 @@ public class GetThreadsTest {
 
 		assertNotNull(previewThreads);
 
-		System.out.println(previewThreads);
-
 	}
 
 	@Test
@@ -28,7 +26,7 @@ public class GetThreadsTest {
 
 		for (FourChanPreviewThread thread : previewThreads) {
 
-			System.out.println(thread.getPosts().get(0).getComment());
+			assertNotNull(thread.getPosts().get(0).getComment());
 
 		}
 
@@ -42,7 +40,11 @@ public class GetThreadsTest {
 
 		FourChanThread thread = previewThread.expand();
 
-		System.out.println(thread);
+		assertNotNull(thread);
+
+		assertNotNull(thread.getPosts());
+
+		assertNotNull(thread.getPosts().get(0).getPostNumber());
 
 	}
 

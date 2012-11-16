@@ -3,9 +3,8 @@ package org.mael.chan4j;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.http.client.fluent.Request;
+import org.mael.chan4j.utils.HttpUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -49,10 +48,8 @@ public class FourChanPage {
 
 		try {
 
-			json = Request
-					.Get("http://api.4chan.org/" + this.board.getName() + "/"
-							+ pageNumber + ".json").execute().returnContent()
-					.asString();
+			json = HttpUtils.getContentFromUrl(buildPageUrl());
+
 		} catch (IOException e) {
 
 			throw new FourChanException("Cannot get JSON request", e);
@@ -67,6 +64,11 @@ public class FourChanPage {
 		}
 
 		return page.getThreads();
+	}
+
+	public String buildPageUrl() {
+		return "http://api.4chan.org/" + this.board.getName() + "/"
+				+ pageNumber + ".json";
 	}
 
 	public List<FourChanPreviewThread> getThreads() {

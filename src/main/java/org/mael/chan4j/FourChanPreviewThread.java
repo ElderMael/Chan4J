@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.http.client.fluent.Request;
+import org.mael.chan4j.utils.HttpUtils;
 
 import com.google.gson.GsonBuilder;
 
@@ -18,7 +18,6 @@ public class FourChanPreviewThread extends FourChanThread {
 
 	@Override
 	public String toString() {
-
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("Posts", this.getPosts()).build();
 	}
@@ -28,14 +27,8 @@ public class FourChanPreviewThread extends FourChanThread {
 		String json = null;
 
 		try {
-
-			json = Request
-					.Get("http://api.4chan.org/"
-							+ this.page.getBoard().getName() + "/res/"
-							+ this.getPosts().get(0).getPostNumber() + ".json")
-					.execute().returnContent().asString();
+			json = HttpUtils.getContentFromUrl(buildThreadUrl());
 		} catch (IOException e) {
-
 			throw new FourChanException("Cannot get JSON request", e);
 		}
 
@@ -45,6 +38,11 @@ public class FourChanPreviewThread extends FourChanThread {
 
 		return thread;
 
+	}
+
+	public String buildThreadUrl() {
+		return "http://api.4chan.org/" + this.page.getBoard().getName()
+				+ "/res/" + this.getPosts().get(0).getPostNumber() + ".json";
 	}
 
 	public FourChanPage getPage() {
