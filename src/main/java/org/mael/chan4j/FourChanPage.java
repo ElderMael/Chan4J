@@ -43,12 +43,16 @@ public class FourChanPage {
 	}
 
 	public List<FourChanPreviewThread> allThreads() {
+		return this.allThreads(false);
+	}
+
+	public List<FourChanPreviewThread> allThreads(boolean useHttps) {
 
 		String json = null;
 
 		try {
 
-			json = HttpUtils.getContentFromUrl(buildPageUrl());
+			json = HttpUtils.getContentFromUrl(buildPageUrl(false));
 
 		} catch (IOException e) {
 
@@ -64,10 +68,18 @@ public class FourChanPage {
 		}
 
 		return page.getThreads();
+
 	}
 
-	public String buildPageUrl() {
-		return "http://api.4chan.org/" + this.board.getName() + "/"
+	public String buildPageUrl(boolean useHttps) {
+
+		String protocol = "http";
+
+		if (useHttps) {
+			protocol = "https";
+		}
+
+		return protocol + "://api.4chan.org/" + this.board.getName() + "/"
 				+ pageNumber + ".json";
 	}
 

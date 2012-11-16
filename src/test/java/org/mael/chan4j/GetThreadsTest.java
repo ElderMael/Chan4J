@@ -1,10 +1,10 @@
 package org.mael.chan4j;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class GetThreadsTest {
 
@@ -16,6 +16,11 @@ public class GetThreadsTest {
 
 		assertNotNull(previewThreads);
 
+		// Https
+		previewThreads = FourChan.fromBoard("g").fromPage(0).allThreads(true);
+
+		assertNotNull(previewThreads);
+
 	}
 
 	@Test
@@ -24,11 +29,12 @@ public class GetThreadsTest {
 		List<FourChanPreviewThread> previewThreads = FourChan.fromBoard("g")
 				.fromPage(0).allThreads();
 
-		for (FourChanPreviewThread thread : previewThreads) {
+		assertNotNullComments(previewThreads);
 
-			assertNotNull(thread.getPosts().get(0).getComment());
+		// Https
+		previewThreads = FourChan.fromBoard("g").fromPage(0).allThreads(true);
 
-		}
+		assertNotNullComments(previewThreads);
 
 	}
 
@@ -40,12 +46,29 @@ public class GetThreadsTest {
 
 		FourChanThread thread = previewThread.expand();
 
+		assertNotNullPosts(thread);
+
+		thread = previewThread.expand(true);
+
+		assertNotNullPosts(thread);
+
+	}
+
+	public void assertNotNullPosts(FourChanThread thread) {
+
 		assertNotNull(thread);
 
 		assertNotNull(thread.getPosts());
 
 		assertNotNull(thread.getPosts().get(0).getPostNumber());
+	}
 
+	public void assertNotNullComments(List<FourChanPreviewThread> previewThreads) {
+		for (FourChanPreviewThread thread : previewThreads) {
+
+			assertNotNull(thread.getPosts().get(0).getComment());
+
+		}
 	}
 
 }
