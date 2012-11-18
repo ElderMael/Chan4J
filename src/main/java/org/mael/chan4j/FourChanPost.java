@@ -2,6 +2,7 @@ package org.mael.chan4j;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.mael.chan4j.utils.Constants;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -140,15 +141,16 @@ public class FourChanPost {
 
 		if (!isThreadPost()) {
 
-			url = protocol + "://4chan.org/" + this.getBoard().getName()
-					+ "/res/"
-					+ this.getThread().getPosts().get(0).getPostNumber() + "#p"
+			url = protocol + Constants.FOUR_CHAN_URL_PREFIX
+					+ this.getBoard().getName() + Constants.FOURCHAN_THREAD_POST_URI
+					+ this.getReplyTo() + Constants.PARAGRAPH_LINK
 					+ this.getPostNumber();
 
 		} else {
 
-			url = protocol + "://4chan.org/" + this.getBoard().getName()
-					+ "/res/" + this.getPostNumber();
+			url = protocol + Constants.FOUR_CHAN_URL_PREFIX
+					+ this.getBoard().getName() + Constants.FOURCHAN_THREAD_POST_URI
+					+ this.getPostNumber();
 		}
 
 		return url;

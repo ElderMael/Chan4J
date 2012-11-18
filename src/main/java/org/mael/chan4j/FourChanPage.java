@@ -3,6 +3,7 @@ package org.mael.chan4j;
 import java.io.IOException;
 import java.util.List;
 
+import org.mael.chan4j.utils.Constants;
 import org.mael.chan4j.utils.HttpUtils;
 
 import com.google.gson.GsonBuilder;
@@ -80,8 +81,8 @@ public class FourChanPage {
 
 		String protocol = FourChan.getProtocolPrefix(useHttps);
 
-		return protocol + "://api.4chan.org/" + this.board.getName() + "/"
-				+ pageNumber + ".json";
+		return protocol + Constants.FOUR_CHAN_API_URL_PREFIX
+				+ this.board.getName() + "/" + this.pageNumber + ".json";
 	}
 
 	public List<FourChanPreviewThread> getThreads() {

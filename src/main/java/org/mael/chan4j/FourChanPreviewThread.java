@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.mael.chan4j.utils.Constants;
 import org.mael.chan4j.utils.HttpUtils;
 
 import com.google.gson.GsonBuilder;
@@ -53,16 +54,19 @@ public class FourChanPreviewThread extends FourChanThread {
 
 		String protocol = FourChan.getProtocolPrefix(useHttps);
 
-		return protocol + "://api.4chan.org/" + this.page.getBoard().getName()
-				+ "/res/" + this.getPosts().get(0).getPostNumber() + ".json";
+		return protocol + Constants.FOUR_CHAN_API_URL_PREFIX
+				+ this.page.getBoard().getName()
+				+ Constants.FOURCHAN_THREAD_POST_URI
+				+ this.getPosts().get(0).getPostNumber() + ".json";
 	}
 
 	public String buildThreadUrl(boolean useHttps) {
 
 		String protocol = FourChan.getProtocolPrefix(useHttps);
 
-		return protocol + "://boards.4chan.org/"
-				+ this.page.getBoard().getName() + "/res/"
+		return protocol + Constants.FOUR_CHAN_URL_PREFIX
+				+ this.page.getBoard().getName()
+				+ Constants.FOURCHAN_THREAD_POST_URI
 				+ this.getPosts().get(0).getPostNumber();
 	}
 

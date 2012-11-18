@@ -13,8 +13,8 @@ public class UrlBuildingTest {
 	private static final String HTTP_API_4CHAN_URL_PREFIX = "http://api.4chan.org/g/res/";
 	private static final String HTTPS_API_4CHAN_URL_PREFIX = "https://api.4chan.org/g/res/";
 	private static final String THREAD_RESOURCE = "/res/";
-	private static final String HTTP_4CHAN_URL_PREFIX = "http://boards.4chan.org/";
-	private static final String HTTPS_4CHAN_URL_PREFIX = "https://boards.4chan.org/";
+	private static final String HTTP_4CHAN_URL_PREFIX = "http://4chan.org/";
+	private static final String HTTPS_4CHAN_URL_PREFIX = "https://4chan.org/";
 
 	private FourChanPreviewThread previewThread;
 
