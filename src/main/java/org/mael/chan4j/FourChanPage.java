@@ -65,6 +65,11 @@ public class FourChanPage {
 
 		for (FourChanPreviewThread thread : page.getThreads()) {
 			thread.setPage(this);
+
+			for (FourChanPost post : thread.getPosts()) {
+				post.setBoard(this.getBoard());
+				post.setThread(thread);
+			}
 		}
 
 		return page.getThreads();
@@ -73,11 +78,7 @@ public class FourChanPage {
 
 	public String buildPageJsonUrl(boolean useHttps) {
 
-		String protocol = "http";
-
-		if (useHttps) {
-			protocol = "https";
-		}
+		String protocol = FourChan.getProtocolPrefix(useHttps);
 
 		return protocol + "://api.4chan.org/" + this.board.getName() + "/"
 				+ pageNumber + ".json";

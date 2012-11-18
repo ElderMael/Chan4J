@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class FourChanPost {
 
+	private FourChanThread thread;
+
+	private FourChanBoard board;
+
 	@Expose
 	@SerializedName("no")
 	private Long postNumber;
@@ -126,6 +130,32 @@ public class FourChanPost {
 
 	public FourChanPost() {
 
+	}
+
+	public String buildUrl(boolean useHttps) {
+
+		String protocol = FourChan.getProtocolPrefix(useHttps);
+
+		String url = null;
+
+		if (!isThreadPost()) {
+
+			url = protocol + "://4chan.org/" + this.getBoard().getName()
+					+ "/res/"
+					+ this.getThread().getPosts().get(0).getPostNumber() + "#p"
+					+ this.getPostNumber();
+
+		} else {
+
+			url = protocol + "://4chan.org/" + this.getBoard().getName()
+					+ "/res/" + this.getPostNumber();
+		}
+
+		return url;
+	}
+
+	public boolean isThreadPost() {
+		return this.replyTo == 0;
 	}
 
 	@Override
@@ -365,6 +395,22 @@ public class FourChanPost {
 
 	public void setOmittedImages(Integer omittedImages) {
 		this.omittedImages = omittedImages;
+	}
+
+	public FourChanThread getThread() {
+		return thread;
+	}
+
+	public void setThread(FourChanThread thread) {
+		this.thread = thread;
+	}
+
+	public FourChanBoard getBoard() {
+		return board;
+	}
+
+	public void setBoard(FourChanBoard board) {
+		this.board = board;
 	}
 
 }

@@ -6,4 +6,8 @@ public class FourChan {
 		return new FourChanBoard(boardName);
 	}
 
+	static String getProtocolPrefix(boolean useHttps) {
+		return (useHttps) ? "https" : "http";
+	}
+
 }

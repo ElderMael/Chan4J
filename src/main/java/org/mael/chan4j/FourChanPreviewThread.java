@@ -40,16 +40,30 @@ public class FourChanPreviewThread extends FourChanThread {
 				.excludeFieldsWithoutExposeAnnotation().create()
 				.fromJson(json, FourChanThread.class);
 
+		for (FourChanPost post : thread.getPosts()) {
+			post.setBoard(this.getPage().getBoard());
+			post.setThread(thread);
+		}
+
 		return thread;
 
 	}
 
 	public String buildThreadJsonUrl(boolean useHttps) {
 
-		String protocol = getProtocol(useHttps);
+		String protocol = FourChan.getProtocolPrefix(useHttps);
 
 		return protocol + "://api.4chan.org/" + this.page.getBoard().getName()
 				+ "/res/" + this.getPosts().get(0).getPostNumber() + ".json";
+	}
+
+	public String buildThreadUrl(boolean useHttps) {
+
+		String protocol = FourChan.getProtocolPrefix(useHttps);
+
+		return protocol + "://boards.4chan.org/"
+				+ this.page.getBoard().getName() + "/res/"
+				+ this.getPosts().get(0).getPostNumber();
 	}
 
 	public FourChanPage getPage() {
@@ -58,24 +72,6 @@ public class FourChanPreviewThread extends FourChanThread {
 
 	public void setPage(FourChanPage page) {
 		this.page = page;
-	}
-
-	public String buildThreadUrl(boolean useHttps) {
-
-		String protocol = getProtocol(useHttps);
-
-		return protocol + "://boards.4chan.org/"
-				+ this.page.getBoard().getName() + "/res/"
-				+ this.getPosts().get(0).getPostNumber();
-	}
-
-	public String getProtocol(boolean useHttps) {
-		String protocol = "http";
-
-		if (useHttps) {
-			protocol = "https";
-		}
-		return protocol;
 	}
 
 }
