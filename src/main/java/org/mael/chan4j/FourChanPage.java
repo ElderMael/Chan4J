@@ -52,7 +52,7 @@ public class FourChanPage {
 
 		try {
 
-			json = HttpUtils.getContentFromUrl(buildPageUrl(useHttps));
+			json = HttpUtils.getContentFromUrl(buildPageJsonUrl(useHttps));
 
 		} catch (IOException e) {
 
@@ -71,7 +71,7 @@ public class FourChanPage {
 
 	}
 
-	public String buildPageUrl(boolean useHttps) {
+	public String buildPageJsonUrl(boolean useHttps) {
 
 		String protocol = "http";
 

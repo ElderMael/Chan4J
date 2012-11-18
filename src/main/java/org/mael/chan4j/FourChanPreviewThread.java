@@ -31,7 +31,7 @@ public class FourChanPreviewThread extends FourChanThread {
 		String json = null;
 
 		try {
-			json = HttpUtils.getContentFromUrl(buildThreadUrl(useHttps));
+			json = HttpUtils.getContentFromUrl(buildThreadJsonUrl(useHttps));
 		} catch (IOException e) {
 			throw new FourChanException("Cannot get JSON request", e);
 		}
@@ -44,13 +44,9 @@ public class FourChanPreviewThread extends FourChanThread {
 
 	}
 
-	public String buildThreadUrl(boolean useHttps) {
+	public String buildThreadJsonUrl(boolean useHttps) {
 
-		String protocol = "http";
-
-		if (useHttps) {
-			protocol = "https";
-		}
+		String protocol = getProtocol(useHttps);
 
 		return protocol + "://api.4chan.org/" + this.page.getBoard().getName()
 				+ "/res/" + this.getPosts().get(0).getPostNumber() + ".json";
@@ -62,6 +58,24 @@ public class FourChanPreviewThread extends FourChanThread {
 
 	public void setPage(FourChanPage page) {
 		this.page = page;
+	}
+
+	public String buildThreadUrl(boolean useHttps) {
+
+		String protocol = getProtocol(useHttps);
+
+		return protocol + "://boards.4chan.org/"
+				+ this.page.getBoard().getName() + "/res/"
+				+ this.getPosts().get(0).getPostNumber();
+	}
+
+	public String getProtocol(boolean useHttps) {
+		String protocol = "http";
+
+		if (useHttps) {
+			protocol = "https";
+		}
+		return protocol;
 	}
 
 }
