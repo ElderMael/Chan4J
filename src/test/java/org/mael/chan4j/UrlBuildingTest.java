@@ -29,7 +29,7 @@ public class UrlBuildingTest {
 
 		this.threadPost = previewThread.getPosts().get(0);
 
-		this.replyPost = previewThread.getPosts().get(1);
+		this.replyPost = previewThread.getPosts().get(0);
 	}
 
 	@Test
