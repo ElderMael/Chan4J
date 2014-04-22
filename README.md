@@ -1,6 +1,8 @@
 Chan4J
 ================
 
+[![Build Status](https://travis-ci.org/ElderMael/Chan4J.svg?branch=master)](https://travis-ci.org/ElderMael/Chan4J)
+
 Chan4J is licenced under LGPL v3 or later
 
 	This program is free software: you can redistribute it and/or modify
